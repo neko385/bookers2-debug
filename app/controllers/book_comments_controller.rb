@@ -5,7 +5,7 @@ class BookCommentsController < ApplicationController
     @comment = current_user.book_comments.new(book_comment_params)
     @comment.book_id = @book.id
     @comment.save
-      render 'book_comments/index's
+      render 'book_comments/index'
   end
 
   def destroy
