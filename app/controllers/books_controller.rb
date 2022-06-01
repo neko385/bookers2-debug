@@ -8,9 +8,9 @@ class BooksController < ApplicationController
   end
 
   def index
-    from = Time.current.at_beginning_of_day
-    to = (from + 6.day).at_end_of_day
-    @books = Book.includes(:favorited_users).sort {|a,b| b.favorited_users.size <=> a.favorited_users.size }
+    to = Time.current.at_end_of_day
+    from = (to - 6.day).at_beginning_of_day
+    @books = Book.includes(:favorited_users).sort_by {|x| x.favorited_users.where(favorites: {created_at: from...to}).size }.reverse
     @book = Book.new
   end
 
